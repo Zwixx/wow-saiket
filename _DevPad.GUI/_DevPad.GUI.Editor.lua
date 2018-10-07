@@ -291,7 +291,7 @@ end
 
 --- Runs the open script.
 function NS.Run:OnClick ()
-	PlaySound( "igMiniMapZoomIn" );
+	PlaySound( SOUNDKIT.IG_MINIMAP_ZOOM_IN );
 	return _DevPad.SafeCall( NS.Script );
 end
 --- Cycles to the next available font.
@@ -466,11 +466,11 @@ end
 
 
 function NS:OnShow ()
-	PlaySound( "igQuestListOpen" );
+	PlaySound( SOUNDKIT.IG_QUEST_LIST_OPEN );
 end
 --- Close the open script.
 function NS:OnHide ()
-	PlaySound( "igQuestListClose" );
+	PlaySound( SOUNDKIT.IG_QUEST_LIST_CLOSE );
 	StaticPopup_Hide( "_DEVPAD_GOTO" );
 	if ( not self:IsShown() ) then -- Explicitly hidden, not obscured by world map
 		return self:SetScriptObject();

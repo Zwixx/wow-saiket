@@ -1,4 +1,4 @@
-## Interface: 60000
+## Interface: 80000
 ## Title: _|cffCCCC88DevPad|r
 ## Notes: Notepad for Lua scripts and mini-addons.
 ## Author: Saiket
@@ -17,9 +17,6 @@
 ## OptionalDeps: _Dev, Ace3
 
 Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-Libs\AceSerializer-3.0\AceSerializer-3.0.xml
-Libs\AceComm-3.0\AceComm-3.0.xml
 
 # See http://wow.curseforge.com/addons/devpad/localization/
 Locales\Locale-enUS.lua

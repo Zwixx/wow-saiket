@@ -143,7 +143,7 @@ do
 	end
 	--- Scrolls a bar when its button is clicked.
 	function NS:ScrollButtonOnClick ()
-		PlaySound( "UChatScrollButton" );
+		PlaySound( SOUNDKIT.U_CHAT_SCROLL_BUTTON );
 		BarIncrement( self:GetParent(), self.Delta );
 	end
 end

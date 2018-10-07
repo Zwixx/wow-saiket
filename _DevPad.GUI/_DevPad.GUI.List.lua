@@ -443,7 +443,7 @@ do
 					self.Object:SetClosed( not self.Object._Closed );
 				end
 				if ( NS:SetSelection( self.Object ) ) then
-					PlaySound( "igMainMenuOptionCheckBoxOn" );
+					PlaySound( SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON );
 				end
 			end
 			--- Starts renaming the object when double clicked.
@@ -501,7 +501,7 @@ do
 		--- Toggles a folder's closed state when clicked.
 		local function ExpandOnClick ( self )
 			local Folder = self:GetParent():GetParent().Object;
-			PlaySound( Folder._Closed and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff" );
+			PlaySound( Folder._Closed and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF );
 			Folder:SetClosed( not Folder._Closed );
 		end
 		--- @return A new folder button.
@@ -690,11 +690,11 @@ end
 
 
 function NS:OnShow ()
-	PlaySound( "igSpellBookOpen" );
+	PlaySound( SOUNDKIT.IG_SPELLBOOK_OPEN );
 end
 --- Closes open scripts and cancels pending actions.
 function NS:OnHide ()
-	PlaySound( "igSpellBookClose" );
+	PlaySound( SOUNDKIT.IG_SPELLBOOK_CLOSE );
 	StaticPopup_Hide( "_DEVPAD_DELETE_CONFIRM" );
 	StaticPopup_Hide( "_DEVPAD_SEND_PLAYER" );
 

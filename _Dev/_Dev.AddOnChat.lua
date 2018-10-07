@@ -65,6 +65,9 @@ do
 	local Print, tostring = _Dev.Print, tostring;
 	function NS.AddMessage ( Prefix, Message, Type, Sender )
 		local Color = ChatTypeInfo[ Type ];
+		if L.ADDONCHAT_TYPES[ Type ] == nil then
+			print("Channeltyp unbekannt: "..Type)
+		end
 		local Message = L.ADDONCHAT_MSG_FORMAT:format( L.ADDONCHAT_TYPES[ Type ],
 			Type == "WHISPER_INFORM" and L.ADDONCHAT_OUTBOUND or "",
 			Sender, EscapeString( tostring( Prefix ) ), EscapeString( tostring( Message ) ) );
@@ -144,6 +147,7 @@ do
 			AddChatTypeButton( Info, "PARTY" );
 			AddChatTypeButton( Info, "BATTLEGROUND" );
 			AddChatTypeButton( Info, "WHISPER" );
+			AddChatTypeButton( Info, "CHANNEL" );
 		end
 	end
 end
@@ -152,7 +156,7 @@ end
 
 
 NS:SetScript( "OnEvent", NS.OnEvent );
-hooksecurefunc( "SendAddonMessage", NS.SendAddonMessage );
+-- hooksecurefunc( "C_ChatInfo.SendAddonMessageLogged", NS.SendAddonMessage );
 
 hooksecurefunc( "FCFOptionsDropDown_Initialize", NS.DropDownInitialize );
 
