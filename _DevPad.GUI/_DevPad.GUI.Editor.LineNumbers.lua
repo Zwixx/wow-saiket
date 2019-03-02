@@ -17,7 +17,7 @@ local UPDATE_INTERVAL = 0.2; -- Time to wait after last keypress before updating
 
 -- Editor colors
 NS.Text:SetTextColor( 1, 1, 1 ); -- Line number color
-NS.Gutter:SetTexture( 0.2, 0.2, 0.2 ); -- Line number background
+NS.Gutter:SetColorTexture( 0.2, 0.2, 0.2 ); -- Line number background
 
 
 

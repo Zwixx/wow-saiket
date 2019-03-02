@@ -517,7 +517,7 @@ Run:SetHitRectInsets( 4, 4, 4, 4 );
 NS.Title:SetPoint( "TOPLEFT", Run, "TOPRIGHT", 0, -7 );
 Run:SetNormalTexture( [[Interface\Buttons\UI-SpellbookIcon-NextPage-Up]] );
 Run:SetPushedTexture( [[Interface\Buttons\UI-SpellbookIcon-NextPage-Down]] );
-Run:SetHighlightTexture( [[Interface\BUTTONS\UI-ScrollBar-Button-Overlay]] );
+Run:SetHighlightTexture( [[Interface\Buttons\UI-SpellbookIcon-NextPage-Down]] );
 local Highlight = Run:GetHighlightTexture();
 Highlight:SetDesaturated( true );
 Highlight:SetVertexColor( 0.2, 0.8, 0.4 );

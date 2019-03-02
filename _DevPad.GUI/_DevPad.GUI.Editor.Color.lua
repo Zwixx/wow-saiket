@@ -316,13 +316,13 @@ end
 --- Highlights this swatch's outline on enter.
 function NS:SwatchOnEnter ()
 	local Color = NORMAL_FONT_COLOR;
-	self.Outline:SetTexture( Color.r, Color.g, Color.b );
+	self.Outline:SetColorTexture( Color.r, Color.g, Color.b );
 	GUI.Dialog.ControlOnEnter( self );
 end
 --- Restores this swatch's outline on leave.
 function NS:SwatchOnLeave ()
 	local Color = HIGHLIGHT_FONT_COLOR;
-	self.Outline:SetTexture( Color.r, Color.g, Color.b );
+	self.Outline:SetColorTexture( Color.r, Color.g, Color.b );
 	GameTooltip:Hide();
 end
 
