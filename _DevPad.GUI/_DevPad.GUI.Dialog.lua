@@ -38,7 +38,7 @@ function NS:SetVerticalScrollToCoord ( TargetTop, TargetBottom )
 end
 --- @return A new standard button frame.
 function NS:NewButton ( Path )
-	local Button = CreateFrame( "Button", nil, self );
+	local Button = CreateFrame( "Button", nil, self, BackdropTemplateMixin and "BackdropTemplate" );
 	Button:SetSize( 16, 16 );
 	Button:SetScript( "OnEnter", NS.ControlOnEnter );
 	Button:SetScript( "OnLeave", GameTooltip_Hide );
@@ -188,7 +188,7 @@ end
 local ResizeTexture = [[Interface\AddOns\]]..( ... )..[[\Skin\ResizeGrip]];
 --- @return A new frame.
 function NS:New ( Name )
-	local Frame = CreateFrame( "Frame", Name, UIParent );
+	local Frame = CreateFrame( "Frame", Name, UIParent, BackdropTemplateMixin and "BackdropTemplate" );
 	Frame:Hide();
 	Frame:SetScale( 0.9 );
 	Frame:SetFrameStrata( "HIGH" );
