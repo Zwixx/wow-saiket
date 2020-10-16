@@ -9,9 +9,9 @@ local _DevPad, GUI = _DevPad, select( 2, ... );
 local NS = {};
 GUI.Editor.Color = NS;
 
-NS.Swatch = CreateFrame( "Button", nil, GUI.Editor );
+NS.Swatch = CreateFrame( "Button", nil, GUI.Editor, BackdropTemplateMixin and "BackdropTemplate" );
 NS.Dropper = GUI.Editor:NewButton( [[Interface\AddOns\]]..( ... )..[[\Skin\ColorDropper]] );
-NS.Dropdown = CreateFrame( "Frame", nil, NS.Swatch );
+NS.Dropdown = CreateFrame( "Frame", nil, NS.Swatch, BackdropTemplateMixin and "BackdropTemplate" );
 NS.Dropdown.Custom = CreateFrame( "Button", nil, NS.Dropdown, "UIPanelButtonTemplate" );
 
 
@@ -376,7 +376,7 @@ Dropdown:SetFrameLevel( Dropdown:GetFrameLevel() + 10 ); -- Above editbox
 Dropdown:SetScript( "OnUpdate", Dropdown.OnUpdate );
 --- @return A color swatch button initialized to R, G, B.
 local function CreatePreset ( Color )
-	local Swatch = SetupSwatch( CreateFrame( "Button", nil, Dropdown ) );
+	local Swatch = SetupSwatch( CreateFrame( "Button", nil, Dropdown, BackdropTemplateMixin and "BackdropTemplate" ) );
 	Swatch.R, Swatch.G, Swatch.B = Color.r, Color.g, Color.b;
 	Swatch:GetNormalTexture():SetVertexColor( Color.r, Color.g, Color.b );
 	Swatch:SetScript( "OnClick", Dropdown.SwatchOnClick );
