@@ -719,7 +719,7 @@ NS:SetScript( "OnShow", NS.OnShow );
 NS:SetScript( "OnHide", NS.OnHide );
 NS.Title:SetText( L.LIST_TITLE );
 NS.Title:SetJustifyH( "LEFT" );
-NS:SetMinResize( 46 + NS.Title:GetStringWidth(), 100 );
+NS:SetResizeBounds( 46 + NS.Title:GetStringWidth(), 100, 1000, 1000 );
 
 NS.ScrollChild:SetSize( 1, 1 );
 NS.ScrollFrame:SetScrollChild( NS.ScrollChild );

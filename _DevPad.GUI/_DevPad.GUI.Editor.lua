@@ -117,7 +117,7 @@ end
 function NS:SetFont ( Path, Size )
 	Path, Size = Path or DEJAVU_SANS_MONO, Size or 10;
 	if ( ( self.FontPath ~= Path or self.FontSize ~= Size )
-		and self.Font:SetFont( Path, Size )
+		and self.Font:SetFont( Path, Size, '' )
 	) then
 		self.FontPath, self.FontSize = Path, Size;
 		GUI.Callbacks:Fire( "EditorSetFont", Path, Size );
@@ -507,7 +507,7 @@ GUI.Dialog.StickyFrames[ "Editor" ] = NS;
 NS:SetScript( "OnShow", NS.OnShow );
 NS:SetScript( "OnHide", NS.OnHide );
 NS.Title:SetJustifyH( "LEFT" );
-NS:SetMinResize( 100, 100 );
+NS:SetResizeBounds( 100, 100, 1000, 1000 );
 
 -- Title buttons
 local Run = NS.Run;

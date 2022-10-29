@@ -63,8 +63,8 @@ end
 function NS:AddTitleButton ( Button, Offset )
 	Button:SetPoint( "RIGHT", self.LastTitleButton or self.Close, "LEFT", Offset or 0, 0 );
 	self.Title:SetPoint( "RIGHT", Button, "LEFT" );
-	local MinX, MinY = self:GetMinResize();
-	self:SetMinResize( MinX + Button:GetWidth() - ( Offset or 0 ), MinY );
+	local MinX, MinY, MaxX, MaxY = self:GetResizeBounds();
+	self:SetResizeBounds( MinX + Button:GetWidth() - ( Offset or 0 ), MinY, MaxX, MaxY );
 	self.LastTitleButton = Button;
 end
 

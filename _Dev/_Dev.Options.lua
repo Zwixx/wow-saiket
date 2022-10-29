@@ -6,7 +6,7 @@
 
 local _Dev = _Dev;
 local L = _DevLocalization;
-local NS = CreateFrame( "Frame" );
+local NS = CreateFrame( "Frame", nil, UIParent );
 _Dev.Options = NS;
 
 local Callbacks = {};
@@ -315,12 +315,12 @@ SubText:SetText( L.OPTIONS_DESC );
 NS:CreateCheckButton( "PrintLuaErrors" ):SetPoint( "TOPLEFT", SubText, "BOTTOMLEFT", -2, -8 );
 
 -- Create two columns for Dump and Outline options
-local Column1 = CreateFrame( "Frame", "_DevOptionsDump", NS, "OptionsBoxTemplate" );
-_G[ Column1:GetName().."Title" ]:SetText( L.OPTIONS.DUMP );
+local Column1 = CreateFrame( "Frame", "_DevOptionsDump", NS );
+-- Column1:SetText( L.OPTIONS.DUMP );
 Column1:SetPoint( "TOPLEFT", Controls[ "PrintLuaErrors" ], "BOTTOMLEFT", 0, -16 );
 Column1:SetPoint( "BOTTOMRIGHT", NS, "BOTTOM", 0, 16 );
-local Column2 = CreateFrame( "Frame", "_DevOptionsOutline", NS, "OptionsBoxTemplate" );
-_G[ Column2:GetName().."Title" ]:SetText( L.OPTIONS.OUTLINE );
+local Column2 = CreateFrame( "Frame", "_DevOptionsOutline", NS );
+-- _G[ Column2:GetName().."Title" ]:SetText( L.OPTIONS.OUTLINE );
 Column2:SetPoint( "TOPLEFT", Column1, "TOPRIGHT", 8, 0 );
 Column2:SetPoint( "BOTTOMRIGHT", -14, 16 );
 
