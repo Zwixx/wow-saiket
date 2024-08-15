@@ -8,7 +8,7 @@ local AddOnName = ...;
 local _DevOptionsOriginal = {
 	PrintLuaErrors = true;
 
-	Version = GetAddOnMetadata( AddOnName, "Version" ):match( "^([%d.]+)" );
+	Version = C_AddOns.GetAddOnMetadata( AddOnName, "Version" ):match( "^([%d.]+)" );
 };
 _DevOptions = _DevOptionsOriginal;
 
@@ -201,7 +201,7 @@ end
 function NS:MODIFIER_STATE_CHANGED ( _, Modifier, State )
 	Modifier = Modifier:sub( 2 );
 	if ( GetModifiedClick( "_DEV_ENABLECONSOLE" ):find( Modifier, 1, true ) ) then
-		SetConsoleKey( State and "`" or nil );
+		-- SetConsoleKey( State and "`" or nil );
 	end
 	if ( GetModifiedClick( "_DEV_FRAMES_INTERACTIVE" ):find( Modifier, 1, true ) ) then
 		NS.Frames.SetInteractive( State );
