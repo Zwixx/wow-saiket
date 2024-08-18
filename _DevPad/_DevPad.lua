@@ -469,7 +469,7 @@ end
 function NS.SlashCommand ( Input )
 	local Pattern = Input:trim();
 	if ( Pattern == "" ) then
-		local Loaded, ErrorReason = LoadAddOn( "_DevPad.GUI" );
+		local Loaded, ErrorReason = C_AddOns.LoadAddOn( "_DevPad.GUI" );
 		if ( Loaded ) then
 			local List = NS.GUI.List;
 			if ( List:IsVisible() ) then
