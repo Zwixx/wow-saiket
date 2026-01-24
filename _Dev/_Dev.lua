@@ -221,7 +221,6 @@ function NS:ADDON_LOADED ( _, AddOn )
 		end
 		NS.Outline:OnLoad();
 		NS.Stats:OnLoad();
-		NS.Options:OnLoad();
 	end
 end
 --[[****************************************************************************
