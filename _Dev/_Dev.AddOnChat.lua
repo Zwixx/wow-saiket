@@ -1,6 +1,7 @@
 --[[****************************************************************************
   * _Dev by Saiket                                                             *
   * _Dev.AddOnChat.lua - Adds hidden addon communication to chat windows.      *
+  * WoW 12.0+ compatible using Menu.ModifyMenu API                            *
   ****************************************************************************]]
 
 
@@ -12,9 +13,6 @@ _Dev.AddOnChat = NS;
 NS.ListenerCount = 0; -- Number of chat types registered across all chat frames
 local ChatFrames = {};
 NS.ChatFrames = ChatFrames;
-
-
-
 
 --[[****************************************************************************
   * Function: _Dev.AddOnChat.EnableChatType                                    *
@@ -55,7 +53,6 @@ function NS.EnableChatType ( ChatFrame, Type, Enable )
 	end
 end
 
-
 --[[****************************************************************************
   * Function: _Dev.AddOnChat.AddMessage                                        *
   * Description: Adds an addon chat message to all registered frames.          *
@@ -82,12 +79,14 @@ do
 		end
 	end
 end
+
 --[[****************************************************************************
   * Function: _Dev.AddOnChat:OnEvent                                           *
   ****************************************************************************]]
 function NS:OnEvent ( Event, ... )
 	NS.AddMessage( ... );
 end
+
 --[[****************************************************************************
   * Function: _Dev.AddOnChat.SendAddonMessage                                  *
   ****************************************************************************]]
@@ -100,67 +99,91 @@ do
 	end
 end
 
-
 --[[****************************************************************************
-  * Function: _Dev.AddOnChat:DropDownOnSelect                                  *
-  * Description: Enables or disables chat types when clicked in the drop down. *
+  * Function: _Dev.AddOnChat.CreateChatMenuItems                               *
+  * Description: Creates menu items for addon chat configuration               *
   ****************************************************************************]]
-function NS:DropDownOnSelect ( Type, _, Checked )
-	NS.EnableChatType( FCF_GetCurrentChatFrame(), Type, not not Checked );
-end
---[[****************************************************************************
-  * Function: _Dev.AddOnChat:DropDownInitialize                                *
-  * Description: Hooks setup routines for chat frame drop down menus to add    *
-  *   addon chat message options.                                              *
-  ****************************************************************************]]
-do
-	local function AddChatTypeButton ( Info, Type )
-		local Color = ChatTypeInfo[ Type:upper() == "BATTLEGROUND" and "INSTANCE_CHAT" or Type ];
-		local TypeList = ChatFrames[ FCF_GetCurrentChatFrame() ];
-
-		Info.colorCode = ( "|cff%02x%02x%02x" ):format( Color.r * 255 + 0.5, Color.g * 255 + 0.5, Color.b * 255 + 0.5 );
-		Info.text = L.ADDONCHAT_TYPES[ Type ];
-		Info.arg1 = Type;
-		Info.checked = ( TypeList and TypeList[ Type ] ) and 1 or nil;
-		UIDropDownMenu_AddButton( Info, 2 );
-	end
-	function NS:DropDownInitialize ( Level )
-		local Info = UIDropDownMenu_CreateInfo();
-		if ( Level == 1 ) then
-			-- Spacer
-			Info.disabled = true;
-			Info.notCheckable = true;
-			UIDropDownMenu_AddButton( Info );
-
-			Info.text = L.ADDONCHAT_MESSAGES;
-			Info.hasArrow = true;
-			Info.disabled = nil;
-			UIDropDownMenu_AddButton( Info );
-		elseif ( Level == 2 and UIDROPDOWNMENU_MENU_VALUE == L.ADDONCHAT_MESSAGES ) then -- Addon Chat sub-menu
-			Info.func = NS.DropDownOnSelect;
-			Info.isNotRadio = true;
-			Info.keepShownOnClick = true;
-
-			AddChatTypeButton( Info, "GUILD" );
-			AddChatTypeButton( Info, "OFFICER" );
-			AddChatTypeButton( Info, "RAID" );
-			AddChatTypeButton( Info, "PARTY" );
-			AddChatTypeButton( Info, "BATTLEGROUND" );
-			AddChatTypeButton( Info, "WHISPER" );
-			AddChatTypeButton( Info, "CHANNEL" );
+local function CreateChatMenuItems( rootDescription, ChatFrame )
+	rootDescription:CreateDivider();
+	rootDescription:CreateTitle(L.ADDONCHAT_MESSAGES or "Addon Chat Messages");
+	
+	-- Define chat types with their order
+	local chatTypes = {
+		"GUILD",
+		"OFFICER",
+		"RAID",
+		"PARTY",
+		"BATTLEGROUND",
+		"WHISPER",
+		"CHANNEL",
+	};
+	
+	-- Create checkbox for each chat type
+	for _, Type in ipairs(chatTypes) do
+		-- Capture Type in a local variable to avoid closure issues
+		local chatType = Type;
+		local frame = ChatFrame;
+		
+		-- Create closures that capture the correct values
+		local function GetChecked()
+			local TypeList = ChatFrames[ frame ];
+			return ( TypeList and TypeList[ chatType ] ) and true or false;
 		end
+		
+		local function OnClick()
+			local isCurrentlyEnabled = GetChecked();
+			NS.EnableChatType( frame, chatType, not isCurrentlyEnabled );
+			print("|cffCCCC88_Dev|r: "..chatType.." toggled to "..tostring(not isCurrentlyEnabled));
+		end
+		
+		-- The third parameter is the checked state getter (returns true/false)
+		-- The second parameter is the click handler
+		rootDescription:CreateCheckbox(
+			L.ADDONCHAT_TYPES[ chatType ] or chatType,
+			GetChecked,  -- isChecked function
+			OnClick  -- onClick function
+		);
 	end
 end
 
+--[[****************************************************************************
+  * Function: _Dev.AddOnChat.SetupChatFrameMenu                                *
+  * Description: Sets up the chat frame context menu                           *
+  ****************************************************************************]]
+function NS.SetupChatFrameMenu()
+	if not Menu then
+		print("|cffCCCC88_Dev|r: Menu API not available");
+		return;
+	end
+	
+	print("|cffCCCC88_Dev|r: Setting up chat frame menu");
+	
+	-- Hook into chat frame tab menu
+	Menu.ModifyMenu("MENU_FCF_TAB", function(ownerRegion, rootDescription, contextData)
+		print("|cffCCCC88_Dev|r: Menu modified, contextData:", contextData);
+		if contextData then
+			for k, v in pairs(contextData) do
+				print("|cffCCCC88_Dev|r:   "..tostring(k).." = "..tostring(v));
+			end
+		end
+		
+		-- Get the current chat frame
+		local chatFrame = FCF_GetCurrentChatFrame();
+		if chatFrame then
+			print("|cffCCCC88_Dev|r: Current chat frame:", chatFrame:GetName());
+			CreateChatMenuItems(rootDescription, chatFrame);
+		end
+	end);
+end
 
-
-
+--[[****************************************************************************
+  * Initialization                                                              *
+  ****************************************************************************]]
 NS:SetScript( "OnEvent", NS.OnEvent );
--- hooksecurefunc( "C_ChatInfo.SendAddonMessageLogged", NS.SendAddonMessage );
 
-hooksecurefunc( "FCFOptionsDropDown_Initialize", NS.DropDownInitialize );
-
--- Hook chat windows if not hooked already
-for Index = 1, NUM_CHAT_WINDOWS do
-	hooksecurefunc( _G[ "ChatFrame"..Index.."TabDropDown" ], "initialize", NS.DropDownInitialize );
+-- Setup the menu system if available
+if Menu then
+	NS.SetupChatFrameMenu();
+else
+	print("|cffCCCC88_Dev|r: Menu API not available, addon chat menu not configured");
 end
