@@ -1,4 +1,4 @@
-## Interface: 100000
+## Interface: 100000, 120000, 120001
 ## Title: _|cffCCCC88Dev|r
 ## Notes: Special tools useful for debugging the UI.
 ## Author: Saiket
@@ -16,6 +16,19 @@
 ## SavedVariables: _DevOptions
 ## LoadWith: Blizzard_DebugTools
 ## OptionalDeps: !ImprovedErrorFrame, !BugGrabber, !Swatter, !BaudErrorFrame
+
+## https://warcraft.wiki.gg/wiki/Addon_Categories
+## Category-enUS: Development Tools
+## Category-deDE: Entwicklungstools
+## Category-esES: Herramientas de Desarrollo
+## Category-esMX: Herramientas de Desarrollo
+## Category-frFR: Outils de Développement
+## Category-itIT:
+## Category-koKR:
+## Category-ptBR: Ferramentas de Desenvolvimento
+## Category-ruRU: Инструменты разработки
+## Category-zhCN: 开发工具
+## Category-zhTW: 開發工具
 
 Locales\Locale-enUS.lua
 

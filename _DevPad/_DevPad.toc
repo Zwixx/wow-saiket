@@ -1,4 +1,4 @@
-## Interface: 100000
+## Interface: 100000, 120000, 120001
 ## Title: _|cffCCCC88DevPad|r
 ## Notes: Notepad for Lua scripts and mini-addons.
 ## Author: Saiket
@@ -15,6 +15,19 @@
 ## X-CompatibleLocales: deDE, enCN, enTW, enUS, esES, esMX, frFR, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## SavedVariables: _DevPadOptions
 ## OptionalDeps: _Dev, Ace3
+
+## https://warcraft.wiki.gg/wiki/Addon_Categories
+## Category-enUS: Development Tools
+## Category-deDE: Entwicklungstools
+## Category-esES: Herramientas de Desarrollo
+## Category-esMX: Herramientas de Desarrollo
+## Category-frFR: Outils de Développement
+## Category-itIT:
+## Category-koKR:
+## Category-ptBR: Ferramentas de Desenvolvimento
+## Category-ruRU: Инструменты разработки
+## Category-zhCN: 开发工具
+## Category-zhTW: 開發工具
 
 Libs\LibStub\LibStub.lua
 
