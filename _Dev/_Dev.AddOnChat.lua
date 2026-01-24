@@ -105,7 +105,7 @@ end
   ****************************************************************************]]
 local function CreateChatMenuItems( rootDescription, ChatFrame )
 	rootDescription:CreateDivider();
-	rootDescription:CreateTitle(L.ADDONCHAT_MESSAGES or "Addon Chat Messages");
+	submenu = rootDescription:CreateButton(L.ADDONCHAT_MESSAGES or "Addon Messages");
 	
 	-- Define chat types with their order
 	local chatTypes = {
@@ -133,15 +133,14 @@ local function CreateChatMenuItems( rootDescription, ChatFrame )
 		local function OnClick()
 			local isCurrentlyEnabled = GetChecked();
 			NS.EnableChatType( frame, chatType, not isCurrentlyEnabled );
-			print("|cffCCCC88_Dev|r: "..chatType.." toggled to "..tostring(not isCurrentlyEnabled));
 		end
 		
 		-- The third parameter is the checked state getter (returns true/false)
 		-- The second parameter is the click handler
-		rootDescription:CreateCheckbox(
+		submenu:CreateCheckbox(
 			L.ADDONCHAT_TYPES[ chatType ] or chatType,
-			GetChecked,  -- isChecked function
-			OnClick  -- onClick function
+			GetChecked,
+			OnClick
 		);
 	end
 end
@@ -151,16 +150,8 @@ end
   * Description: Sets up the chat frame context menu                           *
   ****************************************************************************]]
 function NS.SetupChatFrameMenu()
-	if not Menu then
-		print("|cffCCCC88_Dev|r: Menu API not available");
-		return;
-	end
-	
-	print("|cffCCCC88_Dev|r: Setting up chat frame menu");
-	
 	-- Hook into chat frame tab menu
 	Menu.ModifyMenu("MENU_FCF_TAB", function(ownerRegion, rootDescription, contextData)
-		print("|cffCCCC88_Dev|r: Menu modified, contextData:", contextData);
 		if contextData then
 			for k, v in pairs(contextData) do
 				print("|cffCCCC88_Dev|r:   "..tostring(k).." = "..tostring(v));
@@ -180,10 +171,4 @@ end
   * Initialization                                                              *
   ****************************************************************************]]
 NS:SetScript( "OnEvent", NS.OnEvent );
-
--- Setup the menu system if available
-if Menu then
-	NS.SetupChatFrameMenu();
-else
-	print("|cffCCCC88_Dev|r: Menu API not available, addon chat menu not configured");
-end
+NS.SetupChatFrameMenu();
